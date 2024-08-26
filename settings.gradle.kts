@@ -21,4 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "GapGram"
 include(":app")
- 
+include(":Framework")

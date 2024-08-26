@@ -3,11 +3,14 @@ package com.example.gapgram.serviceCaller;
 import android.util.Log; // اضافه کردن این خط برای استفاده از Log
 
 import com.example.gapgram.PostCount;
+import com.example.gapgram.model.IListResponse;
 import com.example.gapgram.model.IResponse;
+import com.example.gapgram.model.Post;
 import com.example.gapgram.serviceCaller.ApiClient;
 import com.example.gapgram.serviceCaller.ApiInterface;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -42,5 +45,23 @@ public class WebserviceCaller {
                 Log.e(TAG, "Failure: " + t.getMessage());
             }
         });
+    }
+
+    public void getPosts(final IListResponse listResponse)throws Exception{
+
+        Call<List<Post>> call=apiInterface.getPosts();
+
+        call.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                listResponse.onSuccess(response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                listResponse.onFail();
+            }
+        });
+
     }
 }

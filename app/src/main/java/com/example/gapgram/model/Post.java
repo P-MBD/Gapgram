@@ -66,7 +66,7 @@ public class Post implements Parcelable {
     @Override
     public int describeContents() {
         return 0;
-    }
+     }
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {

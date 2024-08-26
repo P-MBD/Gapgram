@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">GapGram</string>
+    <string name="post_image_desc">Post image description</string>
 </resources>
