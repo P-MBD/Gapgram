@@ -1,16 +1,13 @@
 package com.example.gapgram;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.viewbinding.ViewBinding;
 
 import com.example.gapgram.adapter.PostAdapter;
 import com.example.gapgram.databinding.ActivityMainBinding;
@@ -18,14 +15,9 @@ import com.example.gapgram.model.IListResponse;
 import com.example.gapgram.model.IResponse;
 import com.example.gapgram.model.Post;
 import com.example.gapgram.serviceCaller.WebserviceCaller;
-import com.karumi.dexter.Dexter;
-import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.PermissionDeniedResponse;
-import com.karumi.dexter.listener.PermissionGrantedResponse;
-import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.single.PermissionListener;
+import com.example.gapgram.ui.profile.ProfileForm;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding>  {
@@ -47,44 +39,39 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>  {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
-  /* if(ApplicationPermission.isStoragePermissionGranted(MainActivity.this))
-        {
-
-        }*/
-        // Request permission using Dexter
-      /*   Dexter.withActivity(this)
-                .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                .withListener(new PermissionListener() {
-                    @Override
-                    public void onPermissionGranted(PermissionGrantedResponse response) {
-                        Log.e("Permission", "Granted");
-                    }
-
-                    @Override
-                    public void onPermissionDenied(PermissionDeniedResponse response) {
-                        Log.e("Permission", "Denied");
-                    }
-
-                    @Override
-                    public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
-                        Log.e("Permission", "Rationale should be shown");
-                        token.continuePermissionRequest();
-                    }
-                }).check(); */
+        BottomNavigationView bottomNavigationView = binding.menuBottom;
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+                if (itemId == R.id.navigation_home) {
+                    // Handle home action
+                    return true;
+                } else if (itemId == R.id.navigation_search) {
+                    // Handle search action
+                    return true;
+                } else if (itemId == R.id.navigation_profile) {
+                    // Handle profile action
+                    openProfileActivity();
+                    return true;
+                }
+                return false;
+            }
+        });
 
     }
 
-    @Override
-    public int setContentView() {
-        return R.layout.activity_main;
-    }
+
 
     @Override
     protected ActivityMainBinding inflateBindingLayout() {
         // Inflate the layout using View Binding
         return ActivityMainBinding.inflate(getLayoutInflater());
     }
-
+    private void openProfileActivity() {
+        Intent intent = new Intent(MainActivity.this, ProfileForm.class);
+        startActivity(intent);
+    }
     public void getCount() {
         webserviceCaller.getPostCount(new IResponse<List<Post>>() {
             @Override
