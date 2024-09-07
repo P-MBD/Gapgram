@@ -7,7 +7,7 @@
         tools:ignore="ScopedStorage" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     <application
-        android:name=".AppConfig"
+        android:name="com.example.gapgram.AppConfig"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -18,7 +18,7 @@
         android:theme="@style/Theme.GapGram"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.gapgram.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,9 +26,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.profile.ProfileForm">
+        <activity android:name="com.example.gapgram.ui.profile.ProfileForm">
             <!-- اگر نیاز است، می‌توانید intent-filter را نیز اضافه کنید -->
         </activity>
+        <service android:name=".service.GameService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.example.practice.IGameService" />
+            </intent-filter>
+        </service>
+
     </application>
 
 </manifest>

@@ -6,13 +6,9 @@ import com.example.gapgram.PostCount;
 import com.example.gapgram.model.IListResponse;
 import com.example.gapgram.model.IResponse;
 import com.example.gapgram.model.Post;
-import com.example.gapgram.serviceCaller.ApiClient;
-import com.example.gapgram.serviceCaller.ApiInterface;
 
-import java.io.IOException;
 import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

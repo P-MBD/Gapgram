@@ -2,7 +2,7 @@ package com.example.gapgram.ui.profile;
 
 import android.os.Bundle;
 import android.util.Log;
-import com.example.gapgram.R;
+
 import com.example.gapgram.BaseActivity;
 import com.example.gapgram.databinding.ActivityProfileFormBinding;
 import com.example.gapgram.realm.DatabaseChecker;

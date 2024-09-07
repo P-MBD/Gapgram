@@ -2,6 +2,7 @@ package com.example.gapgram;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.RemoteException;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -14,8 +15,11 @@ import com.example.gapgram.databinding.ActivityMainBinding;
 import com.example.gapgram.model.IListResponse;
 import com.example.gapgram.model.IResponse;
 import com.example.gapgram.model.Post;
+import com.example.gapgram.service.GameServiceCenter;
+import com.example.gapgram.service.LauncherService;
 import com.example.gapgram.serviceCaller.WebserviceCaller;
 import com.example.gapgram.ui.profile.ProfileForm;
+import com.example.practice.IGameService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
@@ -23,10 +27,24 @@ import java.util.List;
 public class MainActivity extends BaseActivity<ActivityMainBinding>  {
     RecyclerView recyclerView;
     WebserviceCaller webserviceCaller;
+    private GameServiceCenter gameServiceCenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Intent intent = new Intent();
+        intent.setClassName("com.example.practice","com.example.practice.service.MyReciver");
+        intent.setAction("com.example.practice.service.MyReciver");
+        intent.putExtra("id", 2);
+        intent.putExtra("data", "Hi");
+        // ایجاد و اتصال به سرویس
+        gameServiceCenter = new GameServiceCenter();
+        gameServiceCenter.init(this);
+
+
+
+
         // Use binding to access views
         recyclerView = binding.recyclerPosts;
         webserviceCaller = new WebserviceCaller();
@@ -60,7 +78,10 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>  {
         });
 
     }
-
+    // هر زمانی که بخواهید، می‌توانید متدها را فراخوانی کنید
+    private void startNewMatch() {
+        gameServiceCenter.startMatch();
+    }
 
 
     @Override

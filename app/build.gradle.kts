@@ -12,6 +12,9 @@ android {
     viewBinding {
         enable = true
     }
+    buildFeatures {
+        aidl = true
+    }
     defaultConfig {
         applicationId = "com.example.gapgram"
         minSdk = 24
