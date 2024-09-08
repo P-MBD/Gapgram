@@ -11,6 +11,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gapgram.adapter.PostAdapter;
+import com.example.gapgram.dagger.DaggerUserComponent;
+import com.example.gapgram.dagger.UserComponent;
+import com.example.gapgram.dagger.UserModule;
 import com.example.gapgram.databinding.ActivityMainBinding;
 import com.example.gapgram.model.IListResponse;
 import com.example.gapgram.model.IResponse;
@@ -42,8 +45,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding>  {
         gameServiceCenter = new GameServiceCenter();
         gameServiceCenter.init(this);
 
-
-
+        // Setup Dagger component
+        UserComponent component = DaggerUserComponent.builder().
+                userModule(new UserModule()).build();
+        component.provideUser().deleteUserMail();
+        Log.d("MainActivity", "User's email deleted");
 
         // Use binding to access views
         recyclerView = binding.recyclerPosts;
